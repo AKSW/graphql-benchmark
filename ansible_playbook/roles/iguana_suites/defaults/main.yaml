@@ -1,0 +1,19 @@
+iguana_http_connections:
+  - number: 1
+  - number: 4
+  - number: 8
+  - number: 16
+iguana_time_limit: 3600000
+iguana_query_mixes_limit: 5
+iguana_query_timeout: 180000
+tentris_timeout: "{{ (iguana_query_timeout * 0.001 + 1) | int }}"
+neo4j_timeout: "{{ (iguana_query_timeout * 0.001 + 1) | int }}"
+
+tentris_gql_versions:
+  - TentrisGQL
+  - TentrisGQLBase
+
+graphql_services_http:
+  - name: Neo4j
+    connection_url: http://localhost:7474/db/neo4j/tx/commit
+    iguana_worker: CypherWorker

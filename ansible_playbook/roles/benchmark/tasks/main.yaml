@@ -1,0 +1,11 @@
+- name: Copy graphql script
+  template:
+    src: "run_graphql.sh"
+    dest: "{{ target_dir }}/run_graphql.sh"
+    mode: 0755
+
+- name: Copy load script
+  template:
+    src: "run_load.sh"
+    dest: "{{ target_dir }}/run_load.sh"
+    mode: 0755

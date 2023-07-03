@@ -1,0 +1,47 @@
+datasets:
+  - name: "{{ item[0].name }}"
+
+connections:
+  - name: "Neo4jTranslation"
+    endpoint: "http://localhost:3003/graphql"
+
+tasks:
+  # warmup
+  - className: "Stresstest"
+    configuration:
+      noOfQueryMixes: 1
+      queryHandler:
+        className: "InstancesQueryHandler"
+      workers:
+        - threads: 1
+          className: "HttpGetWorker"
+          queriesFile: "{{ item[0].queries_path.graphql }}/allqts.txt"
+          timeOut: {{ iguana_query_timeout }}
+          language: "lang.SIMPLE"
+
+  - className: "Stresstest"
+    configuration:
+      timeLimit: {{ iguana_time_limit }}
+      queryHandler:
+        className: "InstancesQueryHandler"
+      workers:
+        - threads: {{ item[1].number }}
+          className: "HttpGetWorker"
+          queriesFile: "{{ item[0].queries_path.graphql }}/allqts.txt"
+          timeOut: {{ iguana_query_timeout }}
+          language: "lang.SIMPLE"
+
+#optional otherwise the same metrics will be used as default
+metrics:
+  - className: "QMPH"
+  - className: "QPS"
+  - className: "NoQPH"
+  - className: "AvgQPS"
+  - className: "NoQ"
+
+#optional otherwise an nt file will be used
+storages:
+  - className: "NTFileStorage"
+    configuration:
+      fileName: {{ target_dir }}/iguana_results/graphql/all/results_all_neo4jtranslation-{{ item[0].name }}-{{ item[1].number }}-T.nt
+

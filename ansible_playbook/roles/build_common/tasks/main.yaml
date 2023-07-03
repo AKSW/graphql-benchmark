@@ -1,0 +1,53 @@
+- name: Install make & cmake
+  become: yes
+  apt:
+    package:
+      - make
+      - cmake
+
+- name: Install pkg-config
+  become: yes
+  apt:
+    package:
+      - pkg-config
+      - uuid-dev
+
+- name: Install C++ Compiler
+  become: yes
+  apt:
+    package:
+      - gcc
+      - g++
+
+- name: Install git
+  become: yes
+  apt:
+    package: git
+
+- name: Install boost
+  become: yes
+  apt:
+    package: libboost-all-dev
+
+- name: Install readline
+  become: yes
+  apt:
+    package: libreadline-dev
+
+- name: Install libcurl
+  become: yes
+  apt:
+    package: libcurl4-openssl-dev
+
+- name: Install OpenJDK 17
+  become: yes
+  apt:
+    package:
+      - openjdk-17-jdk
+      - maven
+    state: present
+
+- name: Install NodeJS
+  become: yes
+  shell: |
+    curl -sL https://deb.nodesource.com/setup_16.x | sudo -E bash - && sudo apt-get install -y nodejs

@@ -1,0 +1,22 @@
+- name: Check for Iguana
+  stat:
+    path: "{{ target_dir }}/iguana-{{ iguana_version }}"
+  register: iguana_dir
+
+- name: Create Iguana directory
+  file:
+    path: "{{ target_dir }}/iguana-{{ iguana_version }}"
+    state: directory
+  when: not iguana_dir.stat.exists
+
+# version with cypher worker
+- name: Copy IGUANA jar with openCypher worker
+  copy:
+    src: "iguana-{{ iguana_version }}.jar"
+    dest: "{{ target_dir }}/iguana-{{ iguana_version }}/corecontroller.jar"
+
+- name: Template copy iguana run script
+  template:
+    src: iguana-run.sh
+    dest: "{{ target_dir }}/iguana-run.sh"
+    mode: 0755

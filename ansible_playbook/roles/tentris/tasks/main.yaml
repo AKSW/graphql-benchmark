@@ -1,0 +1,10 @@
+- name: Create Tentris directory
+  file:
+    path: "{{ target_dir }}/systems/{{ tentris_version }}"
+    state: directory
+
+- name: Copy tentris_server binary
+  copy: 
+    src: "tentris_server"
+    dest: "{{ target_dir }}/systems/{{ tentris_version }}/"
+    mode: 0755

@@ -1,0 +1,36 @@
+- name: Setup neo4j
+  file:
+    path: "{{ target_dir }}/systems/neo4j"
+    state: directory
+
+- name: Check for neo4j tarball
+  stat:
+    path: "{{ neo4j_tarball_path }}"
+  register: neo4j_tarball
+
+- name: Check for apoc JAR
+  stat:
+    path: "{{ apoc_jar_path }}"
+  register: apoc
+  
+- name: Download neo4j tarball
+  get_url:
+    url: "https://neo4j.com/artifact.php?name=neo4j-community-{{ neo4j_version }}-unix.tar.gz"
+    dest: "{{ neo4j_tarball_path }}"
+  when: not neo4j_tarball.stat.exists
+
+- name: Download apoc JAR
+  get_url:
+    url: "https://github.com/neo4j-contrib/neo4j-apoc-procedures/releases/download/{{ apoc_version }}/apoc-{{ apoc_version }}-extended.jar"
+    dest: "{{ apoc_jar_path }}"
+  when: not apoc.stat.exists
+
+- name: Copy neo4j_graphql_js
+  template:
+    src: translation.js
+    dest: "{{ target_dir }}/systems/neo4j/translation.js"
+
+- name: Install neo4j-graphql-js
+  become: no
+  shell: |
+    cd {{ target_dir }}/systems/neo4j/ ; npm install --save neo4j-graphql-js apollo-server@3.12.0; cd {{ target_dir }}

@@ -1,0 +1,30 @@
+- name: Check for LingGBM scale factor directory
+  stat:
+    path: "{{ target_dir }}/datasets/lingbm/{{ item }}"
+  register: lingbm_dir
+
+- block:
+
+  - name: Create a temporary download directory
+    tempfile:
+      state: directory
+      suffix: lingbm_{{ item }}_download
+    register: tempdir
+
+  - name: Create directory for sf {{ item }}
+    file:
+      path: "{{ target_dir }}/datasets/lingbm/{{ item }}"
+      state: directory
+ 
+  - name: Download artifacts for sf {{ item }}
+    get_url:
+      url: https://hobbitdata.informatik.uni-leipzig.de/tentris-graphql/data/lingbm{{ item }}.zip
+      dest: "{{ tempdir.path }}/lingbm{{ item }}.zip"
+
+  - name: Unzip data
+    unarchive:
+      src: "{{ tempdir.path }}/lingbm{{ item }}.zip"
+      dest: "{{ target_dir }}/datasets/lingbm/{{ item }}/"
+      remote_src: yes
+
+  when: not lingbm_dir.stat.exists

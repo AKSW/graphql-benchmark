@@ -1,0 +1,23 @@
+- name: Check for LingGBM directory
+  stat:
+    path: "{{ target_dir }}/datasets/lingbm"
+  register: lingbm_dir
+
+- name: Create LinGBM directory
+  file:
+    path: "{{ target_dir }}/datasets/lingbm/"
+    state: directory
+  when: not lingbm_dir.stat.exists
+
+- name: Copy GraphQL schema for Tentris
+  get_url: 
+    url: "https://hobbitdata.informatik.uni-leipzig.de/tentris-graphql/data/tentris-lingbm.graphql"
+    dest: "{{ target_dir }}/datasets/lingbm/tentris-lingbm.graphql"
+
+- name: Copy GraphQL schema for Tentris (NoID)
+  get_url: 
+    url: "https://hobbitdata.informatik.uni-leipzig.de/tentris-graphql/data/tentris-lingbm-noid.graphql"
+    dest: "{{ target_dir }}/datasets/lingbm/tentris-lingbm-noid.graphql"
+
+- include: download.yaml
+  loop: "{{ lingbm_sf }}"

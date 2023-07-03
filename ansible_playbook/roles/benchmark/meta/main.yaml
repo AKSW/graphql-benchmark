@@ -1,0 +1,9 @@
+dependencies:
+  - role: base
+  - role: build_common
+  - role: dataset_lingbm
+  - role: neo4j
+  - role: tentris
+  - role: loaders
+  - role: iguana
+  - role: iguana_suites

@@ -1,0 +1,40 @@
+graphql_datasets:
+  - name: lingbm100
+    path: 
+      neo4j: 
+        - "{{ target_dir }}/datasets/lingbm/100/Universities-nodes.csv"
+        - "{{ target_dir }}/datasets/lingbm/100/Universities-edges.csv"
+      rdf: "{{ target_dir }}/datasets/lingbm/100/Universities.nt"
+    queries_path: 
+      neo4j: "{{ target_dir }}/datasets/lingbm/100/cypher"
+      graphql: "{{ target_dir }}/datasets/lingbm/100/graphql"
+    schema_path:
+      tentris: "{{ target_dir }}/datasets/lingbm/tentris-lingbm.graphql"
+      tentris_noid: "{{ target_dir }}/datasets/lingbm/tentris-lingbm-noid.graphql"
+  - name: lingbm500
+    path: 
+      neo4j:
+        - "{{ target_dir }}/datasets/lingbm/500/Universities-nodes.csv"
+        - "{{ target_dir }}/datasets/lingbm/500/Universities-edges.csv"
+      rdf: "{{ target_dir }}/datasets/lingbm/500/Universities.nt"
+    queries_path: 
+      neo4j: "{{ target_dir }}/datasets/lingbm/500/cypher"
+      graphql: "{{ target_dir }}/datasets/lingbm/500/graphql"
+    schema_path:
+      tentris: "{{ target_dir }}/datasets/lingbm/tentris-lingbm.graphql"
+      tentris_noid: "{{ target_dir }}/datasets/lingbm/tentris-lingbm-noid.graphql"
+  - name: lingbm1000
+    path: 
+      neo4j: 
+        - "{{ target_dir }}/datasets/lingbm/1000/Universities-nodes.csv"
+        - "{{ target_dir }}/datasets/lingbm/1000/Universities-edges.csv"
+      rdf: "{{ target_dir }}/datasets/lingbm/1000/Universities.nt"
+    queries_path: 
+      neo4j: "{{ target_dir }}/datasets/lingbm/1000/cypher"
+      graphql: "{{ target_dir }}/datasets/lingbm/1000/graphql"
+    schema_path:
+      tentris: "{{ target_dir }}/datasets/lingbm/tentris-lingbm.graphql"
+      tentris_noid: "{{ target_dir }}/datasets/lingbm/tentris-lingbm-noid.graphql"
+
+graphql_services:
+  - neo4j

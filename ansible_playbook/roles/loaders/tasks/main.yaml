@@ -1,0 +1,16 @@
+- name: Install curl (to talk to http endpoints)
+  become: yes
+  apt:
+    package: curl
+
+- name: Create loader directory
+  file:
+    path: "{{ target_dir }}/loaders"
+    state: directory
+
+- name: Template copy loader scripts for Neo4J
+  template:
+    src: "neo4j-load.sh"
+    dest: "{{ target_dir }}/loaders/neo4j-load-{{ item.name }}.sh"
+    mode: 0755
+  loop: "{{ graphql_datasets }}"

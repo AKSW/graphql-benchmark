@@ -1,0 +1,4 @@
+target_dir: <target_dir>
+user: <user>
+threads: 16 # server threads for parallel connections (assigned to all systems)
+max_threads: 32 # max server threads for parallel connections (assigned to neo4j)

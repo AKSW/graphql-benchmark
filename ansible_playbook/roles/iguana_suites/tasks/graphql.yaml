@@ -1,0 +1,82 @@
+- name: Create HTTP suite directories for Neo4J
+  file:
+    path: "{{ target_dir }}/iguana_suites/graphql/neo4j/{{ item.name }}"
+    state: directory
+  loop: "{{ graphql_datasets }}"
+
+- name: Template copy neo4j start scripts
+  template:
+    src: "neo4j-start.sh"
+    dest: "{{ target_dir }}/iguana_suites/graphql/neo4j/{{ item[0].name }}/{{ item[1].number }}-start.sh"
+    mode: 0755
+  loop: "{{ graphql_datasets | product(iguana_http_connections) | list }}"
+
+- name: Template copy neo4j stop scripts
+  template:
+    src: neo4j-stop.sh
+    dest: "{{ target_dir }}/iguana_suites/graphql/neo4j/{{ item.name }}/stop.sh"
+    mode: 0755
+  loop: "{{ graphql_datasets }}"
+
+- name: Template copy neo4j configuration
+  template:
+    src: neo4j.conf
+    dest: "{{ target_dir }}/iguana_suites/graphql/neo4j/{{ item.number }}-neo4j.conf"
+    mode: 0755
+  loop: "{{ iguana_http_connections }}"
+
+- name: Template copy Iguana suites for Neo4J (time limit, all)
+  template:
+    src: neo4j-all-httpPostT.suite
+    dest: "{{ target_dir }}/iguana_suites/graphql/neo4j/{{ item[0].name }}/{{ item[1].number }}-all-T.yml"
+  loop: "{{ graphql_datasets | product(iguana_http_connections) | list }}"
+
+- name: Template copy Iguana suites for Neo4J (query mixes limit, qts)
+  template:
+    src: neo4j-qts-httpPostQM.suite
+    dest: "{{ target_dir }}/iguana_suites/graphql/neo4j/{{ item[0].name }}/{{ item[1].number }}-qts-QM.yml"
+  loop: "{{ graphql_datasets | product(iguana_http_connections[:1]) | list }}"
+
+- name: Template copy Iguana suites for Neo4JTranslation (time limit, all)
+  template:
+    src: neo4j-translation-all-httpGetT.suite
+    dest: "{{ target_dir }}/iguana_suites/graphql/neo4j/{{ item[0].name }}/{{ item[1].number }}-translation-all-T.yml"
+  loop: "{{ graphql_datasets | product(iguana_http_connections) | list }}"
+
+- name: Template copy Iguana suites for Neo4JTranslation (qm limit, qts)
+  template:
+    src: neo4j-translation-qts-httpGetT.suite
+    dest: "{{ target_dir }}/iguana_suites/graphql/neo4j/{{ item[0].name }}/{{ item[1].number }}-translation-qts-QM.yml"
+  loop: "{{ graphql_datasets | product(iguana_http_connections[:1]) | list }}"
+
+- name: Create HTTP suite directories for Tentris
+  file:
+    path: "{{ target_dir }}/iguana_suites/graphql/{{ item[0] }}/{{ item[1].name }}"
+    state: directory
+  loop: "{{ tentris_gql_versions | product(graphql_datasets) | list }}"
+
+- name: Template copy tentris start scripts
+  template:
+    src: tentris-graphql-start.sh
+    dest: "{{ target_dir }}/iguana_suites/graphql/{{ item[0] }}/{{ item[1].name }}/{{ item[2].number }}-start.sh"
+    mode: 0755
+  loop: "{{ tentris_gql_versions | product(graphql_datasets, iguana_http_connections) | list }}"
+
+- name: Template copy tentris stop scripts
+  template:
+    src: tentris-stop.sh
+    dest: "{{ target_dir }}/iguana_suites/graphql/{{ item }}/stop.sh"
+    mode: 0755
+  loop: "{{ tentris_gql_versions }}"
+
+- name: Template copy Iguana HTTP suites for Tentris (time limit, all)
+  template:
+    src: tentris-graphql-all-httpT.suite
+    dest: "{{ target_dir }}/iguana_suites/graphql/{{ item[0] }}/{{ item[1].name }}/{{ item[2].number }}-all-T.yml"
+  loop: "{{ tentris_gql_versions | product(graphql_datasets, iguana_http_connections) | list }}"
+
+- name: Template copy Iguana HTTP suites for Tentris (query mixes limit, qts)
+  template:
+    src: tentris-graphql-qts-httpQM.suite
+    dest: "{{ target_dir }}/iguana_suites/graphql/{{ item[0] }}/{{ item[1].name }}/{{ item[2].number }}-qts-QM.yml"
+  loop: "{{ tentris_gql_versions | product(graphql_datasets, iguana_http_connections[:1]) | list }}"

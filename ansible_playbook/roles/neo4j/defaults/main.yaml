@@ -1,0 +1,8 @@
+neo4j_version: 5.5.0
+apoc_version: 5.5.0
+neo4j_dir_path: "{{ target_dir }}/systems/neo4j/neo4j-community-{{ neo4j_version }}"
+neo4j_tarball_path: "{{ target_dir }}/systems/neo4j/neo4j-community-{{ neo4j_version }}-unix.tar.gz"
+apoc_jar_path: "{{ target_dir }}/systems/neo4j/apoc-{{ apoc_version }}-core.jar"
+neo4j_cache: 957100m
+neo4j_heap: 31g
+neo4j_connection: http://localhost:7474/db/neo4j/tx/commit

@@ -1,0 +1,11 @@
+- name: Create Iguana suite directory
+  file:
+    path: "{{ target_dir }}/iguana_suites/"
+    state: directory
+
+- name: Create directory for GraphQL services
+  file:
+    path: "{{ target_dir }}/iguana_suites/graphql"
+    state: directory 
+
+- include: graphql.yaml
