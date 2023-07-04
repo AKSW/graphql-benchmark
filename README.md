@@ -48,4 +48,4 @@ The datasets used in the benchmark, their respective queries and the GraphQL sch
 The results reported in the paper and the scripts to generate the plots are available for download [here](https://hobbitdata.informatik.uni-leipzig.de/tentris-graphql/results.zip).
 
 ## Pre-Built Binaries
-The pre-built binary of our implementation is available for download [here](https://hobbitdata.informatik.uni-leipzig.de/tentris-graphql/tentris_server).
+The pre-built binary of our implementation is available for download [here](https://github.com/dice-group/graphql-benchmark/raw/main/ansible_playbook/roles/tentris/files/tentris_server).
