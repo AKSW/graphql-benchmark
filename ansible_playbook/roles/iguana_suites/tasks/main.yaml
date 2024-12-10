@@ -8,4 +8,4 @@
     path: "{{ target_dir }}/iguana_suites/graphql"
     state: directory 
 
-- include_tasks: graphql.yaml
+- include: graphql.yaml
