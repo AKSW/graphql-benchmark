@@ -19,5 +19,5 @@
     url: "http://hobbitdata.informatik.uni-leipzig.de/tentris-graphql/data/tentris-lingbm-noid.graphql"
     dest: "{{ target_dir }}/datasets/lingbm/tentris-lingbm-noid.graphql"
 
-- include: download.yaml
+- include_tasks: download.yaml
   loop: "{{ lingbm_sf }}"
