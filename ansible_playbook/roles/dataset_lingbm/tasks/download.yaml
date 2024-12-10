@@ -18,7 +18,7 @@
  
   - name: Download artifacts for sf {{ item }}
     get_url:
-      url: https://hobbitdata.informatik.uni-leipzig.de/tentris-graphql/data/lingbm{{ item }}.zip
+      url: http://hobbitdata.informatik.uni-leipzig.de/tentris-graphql/data/lingbm{{ item }}.zip
       dest: "{{ tempdir.path }}/lingbm{{ item }}.zip"
 
   - name: Unzip data
