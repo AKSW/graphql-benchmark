@@ -14,6 +14,7 @@ Installation: https://docs.ansible.com/ansible/latest/installation_guide/intro_i
  - Replace ```<target_dir>``` in ```ansible_playbook/roles/base/defaults/main.yaml``` with the absolute path to the directory of the managed node that will store the experiments' required files.
  - Replace ```<user>``` in ```ansible_playbook/roles/base/defaults/main.yaml``` with the username that will be used to login with to the managed node.
  - Install docker in the server that will run the experiments (https://docs.docker.com/engine/install/debian/) (Note: The user must be added to the docker group)
+ - Adjust the pretty high memory and cache sizes in roles/neo4j/defaults/main.yaml
 
 ## Playbook Execution
 You can execute the playbook by issuing the following command:
