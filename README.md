@@ -34,7 +34,7 @@ Before running the benchmarks:
 - prepare neo4j databases
        
         cd <target_dir>
-        sudo ./run_load_.sh
+        sudo ./run_load.sh
 
 To run the benchmark execute the script ```run_graphql.sh``` with root privileges.
 
